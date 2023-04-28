@@ -1,0 +1,26 @@
+<h1>Login</h1>
+<table class="login-form">
+  <tr>
+    <td>
+      <mat-form-field class="login-input">
+        <mat-label>Username</mat-label>
+        <input matInput type="text" [(ngModel)]="credentials.username">
+      </mat-form-field>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <mat-form-field class="login-input">
+        <mat-label>Password</mat-label>
+        <input matInput type="password" [(ngModel)]="credentials.password">
+      </mat-form-field>    
+    </td>
+  </tr>
+    
+  <tr fxLayout="row" fxLayoutGap="20px">
+    <td>
+      <button mat-raised-button color="primary" (click)="onClick($event)">Connect</button>
+      <button mat-raised-button color="primary" (click)="goToSignUp($event)">Sign Up</button>
+    </td>
+  </tr>
+</table>
