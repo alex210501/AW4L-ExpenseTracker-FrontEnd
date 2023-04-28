@@ -14,13 +14,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginComponent } from './components/login/login.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { SpacesComponent } from './components/spaces/spaces.component';
+import { UserSpaceComponent } from './components/user-space/user-space.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     SignupComponent,
-    SpacesComponent
+    SpacesComponent,
+    UserSpaceComponent
   ],
   imports: [
     BrowserModule,

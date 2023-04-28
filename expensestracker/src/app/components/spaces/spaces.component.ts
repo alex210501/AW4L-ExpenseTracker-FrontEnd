@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { ApiService } from 'src/app/services/api.service';
 import { Space } from 'src/app/models/space';
@@ -11,13 +12,13 @@ import { Space } from 'src/app/models/space';
 export class SpacesComponent {
   spaces: Space[] = [];
 
-  constructor(private apiService: ApiService) {}
+  constructor(private router: Router, private apiService: ApiService) {}
 
   ngOnInit() {
     this.apiService.getSpaces().subscribe(spaces => this.spaces = spaces);
   }
 
-  onSpace() {
-    console.log("Hello");
+  onSpace(spaceId: string) {
+    this.router.navigate([`space/${spaceId}`]);
   }
 }
