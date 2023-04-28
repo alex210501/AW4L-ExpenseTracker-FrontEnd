@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
+import { ApiService } from 'src/app/services/api.service';
 import { User } from 'src/app/models/user';
 
 @Component({
@@ -10,17 +11,18 @@ import { User } from 'src/app/models/user';
 })
 export class SignupComponent {
   user: User = { 
-    username: '',
-    firstname: '',
-    lastname: '',
-    email: '',
-    password: '',
+    user_username: '',
+    user_firstname: '',
+    user_lastname: '',
+    user_email: '',
+    user_password: '',
   };
 
-  constructor(private router: Router) {};
+  constructor(private router: Router, private apiService: ApiService) {};
 
   onCreate(event: any) {
     console.log(this.user);
+    this.apiService.createUser(this.user);
   }
 
   goToLogin(event: any) {
