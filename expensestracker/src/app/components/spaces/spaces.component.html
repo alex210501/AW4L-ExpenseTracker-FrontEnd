@@ -1,0 +1,15 @@
+<mat-toolbar>
+    <button mat-icon-button aria-label="Example icon-button with menu icon">
+     <mat-icon>menu</mat-icon>
+   </button>
+   <span>Spaces</span>
+ </mat-toolbar>
+
+ <li *ngFor="let space of spaces;">
+    <mat-card (click)="onSpace()">
+        <mat-card-header>
+          <mat-card-title>{{space.space_name}}</mat-card-title>
+          <mat-card-subtitle>{{space.space_description}}</mat-card-subtitle>
+        </mat-card-header>
+      </mat-card>
+ </li>

@@ -4,6 +4,7 @@ import { map, catchError, tap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 
 import { Credentials } from '../models/credentials';
+import { Space } from '../models/space';
 import { Token } from '../models/token';
 import { User } from '../models/user';
 
@@ -15,7 +16,12 @@ const httpOptions = {
 const URL = 'https://alejandro-borbolla.com/expensestracker';
 const LOGIN_URL = `${URL}/auth/login`;
 const LOGOUT_URL = `${URL}/logout`;
+
+// User Management
 const CREATE_USER_URL = `${URL}/user`;
+
+// Space
+const SPACES_URL = `${URL}/space`;
 
 @Injectable({
   providedIn: 'root'
@@ -48,7 +54,7 @@ export class ApiService {
         httpOptions.headers = httpOptions.headers.set('Authorization', `Bearer ${this.token}`);
       }),
       catchError(catchError(this.handleError<Token>('login'))),
-    ).subscribe();
+    );
   }
 
   logout() {
@@ -60,5 +66,9 @@ export class ApiService {
       tap(_ => console.log('User created')),
       catchError(this.handleError<User>('createUser')),
     ).subscribe();
+  }
+
+  getSpaces(): Observable<Space[]> {
+    return this.http.get<Space[]>(SPACES_URL, httpOptions);
   }
 }
