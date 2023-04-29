@@ -4,6 +4,7 @@ import { map, catchError, tap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 
 import { Credentials } from '../models/credentials';
+import { Expense } from '../models/expense';
 import { Space } from '../models/space';
 import { Token } from '../models/token';
 import { User } from '../models/user';
@@ -22,6 +23,9 @@ const CREATE_USER_URL = `${URL}/user`;
 
 // Space
 const SPACES_URL = `${URL}/space`;
+
+// Expense
+const EXPENSE_URL = `${URL}/space/:space_id/expense`;
 
 @Injectable({
   providedIn: 'root'
@@ -70,5 +74,9 @@ export class ApiService {
 
   getSpaces(): Observable<Space[]> {
     return this.http.get<Space[]>(SPACES_URL, httpOptions);
+  }
+
+  getExpensesFromSpaceId(spaceId: string): Observable<Expense[]> {
+    return this.http.get<Expense[]>(EXPENSE_URL.replace(':space_id', spaceId), httpOptions);
   }
 }

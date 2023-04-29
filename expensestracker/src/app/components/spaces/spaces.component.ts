@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 
 import { ApiService } from 'src/app/services/api.service';
 import { Space } from 'src/app/models/space';
+import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-spaces',
@@ -12,10 +13,10 @@ import { Space } from 'src/app/models/space';
 export class SpacesComponent {
   spaces: Space[] = [];
 
-  constructor(private router: Router, private apiService: ApiService) {}
+  constructor(private router: Router, private apiService: ApiService, public dataService: DataService) {}
 
   ngOnInit() {
-    this.apiService.getSpaces().subscribe(spaces => this.spaces = spaces);
+    this.apiService.getSpaces().subscribe(spaces => this.dataService.spaces = spaces);
   }
 
   onSpace(spaceId: string) {

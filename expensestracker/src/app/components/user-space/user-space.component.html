@@ -1,1 +1,16 @@
-<p>user-space works!</p>
+<mat-toolbar>
+  <button mat-icon-button aria-label="Example icon-button with menu icon">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span *ngIf="space">{{space.space_name}}</span>
+  <ng-template #elseBlock>No name</ng-template>
+</mat-toolbar>
+
+<li *ngFor="let expense of dataService.expenses;">
+  <mat-card (click)="onExpense(expense.expense_id)">
+    <mat-card-header>
+      <mat-card-title>{{expense.expense_description}}</mat-card-title>
+      <mat-card-subtitle>By {{expense.expense_paid_by}}</mat-card-subtitle>
+    </mat-card-header>
+  </mat-card>
+</li>

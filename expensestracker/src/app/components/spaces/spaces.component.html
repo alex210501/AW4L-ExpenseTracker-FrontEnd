@@ -3,9 +3,9 @@
     <mat-icon>menu</mat-icon>
   </button>
   <span>Spaces</span>
- </mat-toolbar>
+</mat-toolbar>
 
- <li *ngFor="let space of spaces;">
+ <li *ngFor="let space of dataService.spaces;">
   <mat-card (click)="onSpace(space.space_id)">
     <mat-card-header>
       <mat-card-title>{{space.space_name}}</mat-card-title>
