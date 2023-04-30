@@ -15,6 +15,7 @@ import { LoginComponent } from './components/login/login.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { SpacesComponent } from './components/spaces/spaces.component';
 import { UserSpaceComponent } from './components/user-space/user-space.component';
+import { ExpenseDetailComponent } from './components/expense-detail/expense-detail.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { UserSpaceComponent } from './components/user-space/user-space.component
     LoginComponent,
     SignupComponent,
     SpacesComponent,
-    UserSpaceComponent
+    UserSpaceComponent,
+    ExpenseDetailComponent
   ],
   imports: [
     BrowserModule,

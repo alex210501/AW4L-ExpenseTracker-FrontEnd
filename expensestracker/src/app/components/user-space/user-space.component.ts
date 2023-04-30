@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { ApiService } from 'src/app/services/api.service';
 import { DataService } from 'src/app/services/data.service';
@@ -14,7 +14,11 @@ export class UserSpaceComponent {
   spaceId = '';
   space?: Space;
 
-  constructor(private route: ActivatedRoute, private apiService: ApiService, public dataService: DataService) {}
+  constructor(
+    private route: ActivatedRoute, 
+    private router: Router,
+    private apiService: ApiService, 
+    public dataService: DataService) {}
 
   ngOnInit() {
     // Get space ID from path
@@ -32,6 +36,10 @@ export class UserSpaceComponent {
   }
 
   onExpense(expenseId: string) {
-    console.log(`Click expense ID: ${expenseId}`);
+    this.router.navigate([`space/${this.spaceId}/expense/${expenseId}`]);
+  }
+
+  addExpense() {
+    this.router.navigate([`space/${this.spaceId}/expense/0`]);
   }
 }

@@ -13,6 +13,10 @@ export class DataService {
   constructor() { }
 
   findSpaceById(spaceId: string): Space | undefined {
-    return this.spaces.find(({ space_id }) => space_id == spaceId);
+    return this.spaces.find(({ space_id }) => space_id === spaceId);
+  }
+
+  findExpenseById(expenseId: string): Expense | undefined {
+    return this.expenses.find(({ expense_id }) => expense_id === expenseId);
   }
 }

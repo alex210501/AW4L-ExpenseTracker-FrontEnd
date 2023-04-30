@@ -26,6 +26,7 @@ const SPACES_URL = `${URL}/space`;
 
 // Expense
 const EXPENSE_URL = `${URL}/space/:space_id/expense`;
+const EXPENSE_ID_URL = `${URL}/space/:space_id/expense/:expense_id`;
 
 @Injectable({
   providedIn: 'root'
@@ -33,7 +34,7 @@ const EXPENSE_URL = `${URL}/space/:space_id/expense`;
 export class ApiService {
   private token = '';
 
-  constructor(private http: HttpClient,) { }
+  constructor(private http: HttpClient) { }
 
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
@@ -78,5 +79,39 @@ export class ApiService {
 
   getExpensesFromSpaceId(spaceId: string): Observable<Expense[]> {
     return this.http.get<Expense[]>(EXPENSE_URL.replace(':space_id', spaceId), httpOptions);
+  }
+
+  createExpense(spaceId: string, expense: Expense): Observable<Map<string, string>> {
+    const expenseJson = {
+      expense_description: expense.expense_description,
+      expense_cost: expense.expense_cost,
+      expense_date: new Date(),
+    };
+
+    return this.http.post<Map<string, string>>(
+      EXPENSE_URL.replace(':space_id', spaceId), 
+      expenseJson, 
+      httpOptions).pipe(
+        tap(a => console.log(a)),
+        catchError(this.handleError<Map<string, string>>('Create Expense')),
+      );
+  }
+
+  patchExpense(spaceId: string, expense: Expense): Observable<Map<string, string>> {
+    let expenseJson = {
+      expense_description: expense.expense_description,
+      expense_cost: expense.expense_cost,
+    };
+
+    return this.http.patch<Map<string, string>>(
+      EXPENSE_ID_URL.replace(':space_id', spaceId).replace(':expense_id', expense.expense_id),
+      expenseJson, 
+      httpOptions);
+  }
+
+  deleteExpense(spaceId: string, expenseId: string): Observable<Expense> {
+    return this.http.delete<Expense>(
+      EXPENSE_ID_URL.replace(':space_id', spaceId).replace(':expense_id', expenseId), 
+      httpOptions);
   }
 }

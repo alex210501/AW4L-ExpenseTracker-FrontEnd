@@ -1,11 +1,11 @@
 import { Category } from "./category";
 
-export interface Expense {
-  expense_id: string;
-  expense_costs: number;
-  expense_description: string;
-  expense_date: Date;
-  expense_space: string;
-  expense_paid_by: string;
-  expense_caetgory: Category[];
+export class Expense {
+  expense_id = '';
+  expense_cost = 0.0;
+  expense_description = '';
+  expense_date = '';
+  expense_space = '';
+  expense_paid_by = '';
+  expense_category = '';
 }
