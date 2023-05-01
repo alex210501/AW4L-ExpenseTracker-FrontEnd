@@ -26,7 +26,7 @@ export class SpaceDetailsComponent {
     // Get space ID from path
     const spaceId = this.route.snapshot.paramMap.get('space_id') ?? '';
     
-    // Get space from its space ID
+    // Get space from its space ID and category
     this.space = this.dataService.findSpaceById(spaceId);
 
     // Get category from API

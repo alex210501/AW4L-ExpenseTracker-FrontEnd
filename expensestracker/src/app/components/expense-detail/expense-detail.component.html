@@ -40,18 +40,26 @@
     </td>
   </tr>
 
-  <!-- <tr>
+  <tr>
     <td>Category</td>
     <td>
-      <span *ngIf="!editMode; else editModeCategory">{{expense.expense_category.category_title}}</span>
+      <span *ngIf="!editMode; else editModeCategory">
+        <p *ngIf="category; else noCategory">{{category.category_title}}</p>
+        <ng-template #noCategory>None</ng-template>
+      </span>
       <ng-template #editModeCategory>
         <mat-form-field>
           <mat-label>Category</mat-label>
-          <input matInput type="text" [(ngModel)]="expense.expense_category">
+          <mat-select [(value)]="expense.expense_category">
+            <mat-option>None</mat-option>
+            <mat-option *ngFor="let cat of dataService.categories" value={{cat.category_id}}>
+              {{cat.category_title}}
+            </mat-option>
+          </mat-select>
         </mat-form-field>
       </ng-template>
     </td>
-  </tr> -->
+  </tr>
 
   <tr>
     <td>Date</td>

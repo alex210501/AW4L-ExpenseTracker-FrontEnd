@@ -61,9 +61,6 @@ export class ApiService {
   }  
 
   login(credentials: Credentials) {
-    console.log('Login');
-    console.log(LOGIN_URL);
-
     return this.http.post<Token>(LOGIN_URL, JSON.stringify(credentials), httpOptions).pipe(
       tap(token => {
         this.token = token.token;
@@ -144,7 +141,10 @@ export class ApiService {
     let expenseJson = {
       expense_description: expense.expense_description,
       expense_cost: expense.expense_cost,
+      expense_category: expense.expense_category ?? null,
     };
+
+    console.log(expenseJson);
 
     return this.http.patch<Map<string, string>>(
       EXPENSE_ID_URL.replace(':space_id', spaceId).replace(':expense_id', expense.expense_id),

@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
 import { DataService } from 'src/app/services/data.service';
 import { Expense } from 'src/app/models/expense';
+import { Category } from 'src/app/models/category';
 
 @Component({
   selector: 'app-expense-detail',
@@ -13,6 +14,7 @@ import { Expense } from 'src/app/models/expense';
 export class ExpenseDetailComponent {
   spaceId = '';
   expense?: Expense;
+  category?: Category;
   editMode = false;
 
   constructor(
@@ -27,8 +29,9 @@ export class ExpenseDetailComponent {
     this.spaceId = this.route.snapshot.paramMap.get('space_id') ?? '';
     const expenseId = this.route.snapshot.paramMap.get('expense_id') ?? '';
 
-    // Get expense
+    // Get expense and category
     this.expense = this.dataService.findExpenseById(expenseId);
+    this._loadCategory();
   }
 
   onEdit() {
@@ -43,21 +46,20 @@ export class ExpenseDetailComponent {
   }
 
   onSave() {
-    // if (this.expense) {
-    //   console.log('yop');
-    //   this.apiService.createExpense(
-    //     this.spaceId, 
-    //     this.expense.expense_description, 
-    //     this.expense.expense_cost)
-    //     .subscribe(_ => this.router.navigate([`space/${this.spaceId}`]));
-    // } else {
     if (this.expense) {
       this.editMode = false;
-      this.apiService.patchExpense(this.spaceId, this.expense!).subscribe();
+      this.apiService.patchExpense(this.spaceId, this.expense).subscribe();
+      this._loadCategory();
     }
   }
 
   onCancel() {
     this.editMode = false;
+  }
+
+  _loadCategory() {
+    if (this.expense && this.expense.expense_category) {
+      this.category = this.dataService.findCategoryById(this.expense.expense_category);
+    }
   }
 }

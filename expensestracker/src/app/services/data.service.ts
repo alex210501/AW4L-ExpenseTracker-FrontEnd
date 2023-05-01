@@ -26,4 +26,8 @@ export class DataService {
   findExpenseById(expenseId: string): Expense | undefined {
     return this.expenses.find(({ expense_id }) => expense_id === expenseId);
   }
+
+  findCategoryById(categoryId: string): Category | undefined {
+    return this.categories.find(( {category_id }) => category_id == categoryId);
+  }
 }
