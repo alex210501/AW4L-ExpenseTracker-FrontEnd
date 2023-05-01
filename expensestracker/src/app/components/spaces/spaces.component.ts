@@ -26,4 +26,14 @@ export class SpacesComponent {
   onEdit(spaceId: string) {
     this.router.navigate([`space/${spaceId}/edit`]);
   }
+
+  onDelete(spaceId: string) {
+    this.apiService.deleteSpace(spaceId).subscribe(_ => {
+      this.spaces = this.dataService.removeSpaceById(spaceId);
+    });
+  }
+
+  createSpace() {
+    this.router.navigate([`space/0/edit`]);
+  }
 }

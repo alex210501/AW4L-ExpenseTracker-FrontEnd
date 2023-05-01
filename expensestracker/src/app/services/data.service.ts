@@ -16,6 +16,11 @@ export class DataService {
     return this.spaces.find(({ space_id }) => space_id === spaceId);
   }
 
+  removeSpaceById(spaceId: string) {
+    this.spaces = this.spaces.filter(space => space.space_id != spaceId);
+    return this.spaces;
+  }
+
   findExpenseById(expenseId: string): Expense | undefined {
     return this.expenses.find(({ expense_id }) => expense_id === expenseId);
   }

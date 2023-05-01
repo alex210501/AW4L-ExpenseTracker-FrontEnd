@@ -24,13 +24,28 @@ export class SpaceDetailsComponent {
   ngOnInit() {
     // Get space ID from path
     const spaceId = this.route.snapshot.paramMap.get('space_id') ?? '';
-    console.log(spaceId);
+    
     // Get space from its space ID
     this.space = this.dataService.findSpaceById(spaceId);
+
+    // If the space is not define, create an empty one
+    if (this.space === undefined) {
+      this.space = new Space();
+    }
   }
 
   onSave() {
-    this.apiService.patchSpace(this.space!);
+    if (this.space && this.space.space_id == '') {
+      this.apiService.createSpace(this.space!).subscribe(_ => this.router.navigate([`spaces`]));
+    } else {
+      this.apiService.patchSpace(this.space!).subscribe();
+    }
+  }
+
+  onDelete() {
+    if (this.space! && this.space.space_id != '') {
+      this.apiService.deleteSpace(this.space.space_id).subscribe(_ => this.router.navigate([`spaces`]));
+    }
   }
 
   addUserToSpace() {
@@ -59,5 +74,7 @@ export class SpaceDetailsComponent {
           this.space!.space_collaborators = this.space!.space_collaborators.filter(elem => elem != username);
         });
     }
+
+    this.router.navigate([`spaces`]);
   }
 }
