@@ -27,30 +27,23 @@ export class SpaceDetailsComponent {
     
     // Get space from its space ID
     this.space = this.dataService.findSpaceById(spaceId);
-
-    // If the space is not define, create an empty one
-    if (this.space === undefined) {
-      this.space = new Space();
-    }
   }
 
   onSave() {
-    if (this.space && this.space.space_id == '') {
-      this.apiService.createSpace(this.space!).subscribe(_ => this.router.navigate([`spaces`]));
-    } else {
-      this.apiService.patchSpace(this.space!).subscribe();
+    if (this.space) {
+      this.apiService.patchSpace(this.space).subscribe();
     }
   }
 
   onDelete() {
-    if (this.space! && this.space.space_id != '') {
+    if (this.space) {
       this.apiService.deleteSpace(this.space.space_id).subscribe(_ => this.router.navigate([`spaces`]));
     }
   }
 
   addUserToSpace() {
-    if (this.space && this.space.space_id != '') {
-      this.apiService.addUserToSpace(this.space!.space_id, this.memberToAdd)
+    if (this.space) {
+      this.apiService.addUserToSpace(this.space.space_id, this.memberToAdd)
         .subscribe(collaborator => {
           if (collaborator === undefined) {
             return;
@@ -68,8 +61,8 @@ export class SpaceDetailsComponent {
   }
 
   deleteUserFromSpace(username: string) {
-    if (this.space && this.space.space_id != '') {
-      this.apiService.deleteUserFromSpace(this.space!.space_id, username)
+    if (this.space) {
+      this.apiService.deleteUserFromSpace(this.space.space_id, username)
         .subscribe(_ => {
           this.space!.space_collaborators = this.space!.space_collaborators.filter(elem => elem != username);
         });

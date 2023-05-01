@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 
 import { ApiService } from 'src/app/services/api.service';
+import { CreateSpaceDialogComponent } from '../dialogs/create-space-dialog/create-space-dialog.component';
 import { Space } from 'src/app/models/space';
 import { DataService } from 'src/app/services/data.service';
 
@@ -13,27 +15,43 @@ import { DataService } from 'src/app/services/data.service';
 export class SpacesComponent {
   spaces: Space[] = [];
 
-  constructor(private router: Router, private apiService: ApiService, public dataService: DataService) {}
+  constructor(
+    private router: Router, 
+    private apiService: ApiService, 
+    public dataService: DataService,
+    public dialog: MatDialog) {}
 
   ngOnInit() {
     this.apiService.getSpaces().subscribe(spaces => this.dataService.spaces = spaces);
   }
 
   onSpace(spaceId: string) {
+    console.log('here');
     this.router.navigate([`space/${spaceId}`]);
   }
 
-  onEdit(spaceId: string) {
+  onEdit(event: MouseEvent, spaceId: string) {
+    event.stopPropagation();
     this.router.navigate([`space/${spaceId}/edit`]);
   }
 
-  onDelete(spaceId: string) {
+  onDelete(event: MouseEvent, spaceId: string) {
+    event.stopPropagation();
     this.apiService.deleteSpace(spaceId).subscribe(_ => {
       this.spaces = this.dataService.removeSpaceById(spaceId);
     });
   }
 
-  createSpace() {
-    this.router.navigate([`space/0/edit`]);
+  openCreateSpaceDialog() {
+    // this.router.navigate([`space/0/edit`]);
+    const dialogRef = this.dialog.open(CreateSpaceDialogComponent);
+
+    // Add space to the spaces if created
+    dialogRef.afterClosed().subscribe(space => {
+      if (space) {
+        this.dataService.spaces.push(space);
+        this.spaces = this.dataService.spaces;
+      }
+    });
   }
 }

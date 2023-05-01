@@ -1,7 +1,7 @@
-export class Space {
-    space_id = '';
-    space_name = '';
-    space_description = '';
-    space_admin = '';
-    space_collaborators: string[] = [];
+export interface Space {
+    space_id: string;
+    space_name: string;
+    space_description: string;
+    space_admin: string;
+    space_collaborators: string[];
 }

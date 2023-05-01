@@ -1,23 +1,28 @@
 import { NgModule } from '@angular/core';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card'; 
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon'; 
 import { MatInputModule } from '@angular/material/input';
- import {MatListModule} from '@angular/material/list'; 
+import { MatListModule } from '@angular/material/list'; 
 import { MatToolbarModule } from '@angular/material/toolbar'; 
+
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ExpenseDetailComponent } from './components/expense-detail/expense-detail.component';
 import { LoginComponent } from './components/login/login.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { SpacesComponent } from './components/spaces/spaces.component';
-import { UserSpaceComponent } from './components/user-space/user-space.component';
-import { ExpenseDetailComponent } from './components/expense-detail/expense-detail.component';
 import { SpaceDetailsComponent } from './components/space-details/space-details.component';
+import { UserSpaceComponent } from './components/user-space/user-space.component';
+import { CreateSpaceDialogComponent } from './components/dialogs/create-space-dialog/create-space-dialog.component';
+import { CreateExpenseDialogComponent } from './components/dialogs/create-expense-dialog/create-expense-dialog.component';
 
 @NgModule({
   declarations: [
@@ -27,20 +32,24 @@ import { SpaceDetailsComponent } from './components/space-details/space-details.
     SpacesComponent,
     UserSpaceComponent,
     ExpenseDetailComponent,
-    SpaceDetailsComponent
+    SpaceDetailsComponent,
+    CreateSpaceDialogComponent,
+    CreateExpenseDialogComponent
   ],
   imports: [
-    BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    BrowserModule,
+    FormsModule,
     HttpClientModule,
     MatButtonModule,
     MatCardModule,
+    MatDialogModule,
+    MatFormFieldModule,
     MatIconModule,
     MatInputModule,
     MatListModule,
     MatToolbarModule,
-    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

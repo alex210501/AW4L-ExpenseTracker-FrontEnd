@@ -83,27 +83,27 @@ export class ApiService {
     return this.http.get<Space[]>(SPACES_URL, httpOptions);
   }
 
-  createSpace(space: Space): Observable<Object> {
+  createSpace(spaceName: string, spaceDescription: string): Observable<Object> {
     const spaceJson = {
-      space_name: space.space_name,
-      space_description: space.space_description,
+      space_name: spaceName,
+      space_description: spaceDescription,
     };
 
     return this.http.post(SPACES_URL, spaceJson, httpOptions)
       .pipe(catchError(this.handleError<Object>('createSpace')));
   }
 
-  patchSpace(space: Space): Observable<Map<string, string>> {
+  patchSpace(space: Space): Observable<Space> {
     const spaceJson = {
-      space_name: space.space_name,
+      space_name: space,
       space_description: space.space_description,
     };
 
-    return this.http.patch<Map<string, string>>(
+    return this.http.patch<Space>(
       SPACE_ID_URL.replace(':space_id', space.space_id),
       spaceJson,
       httpOptions,
-    ).pipe(catchError(this.handleError<Map<string, string>>('updateSpace')));
+    ).pipe(catchError(this.handleError<Space>('updateSpace')));
   }
 
   deleteSpace(spaceId: string) {
