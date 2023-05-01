@@ -12,7 +12,6 @@ import { Expense } from 'src/app/models/expense';
 })
 export class ExpenseDetailComponent {
   spaceId = '';
-  expenseId = '';
   expense?: Expense;
   editMode = false;
 
@@ -26,34 +25,33 @@ export class ExpenseDetailComponent {
   ngOnInit() {
     // Get space and expense ID from path
     this.spaceId = this.route.snapshot.paramMap.get('space_id') ?? '';
-    this.expenseId = this.route.snapshot.paramMap.get('expense_id') ?? '';
+    const expenseId = this.route.snapshot.paramMap.get('expense_id') ?? '';
 
     // Get expense
-    this.expense = this.dataService.findExpenseById(this.expenseId);
-
-    if (!this.expense) {
-      this.editMode = true;
-      this.expense = new Expense();
-    }
+    this.expense = this.dataService.findExpenseById(expenseId);
   }
 
   onEdit() {
     this.editMode = !this.editMode;
-    console.log(this.editMode);
   }
 
   onDelete() {
-    this.apiService.deleteExpense(this.spaceId, this.expenseId).subscribe();
-    this.router.navigate([`space/${this.spaceId}`]);
+    if (this.expense) {
+      this.apiService.deleteExpense(this.spaceId, this.expense.expense_id)
+        .subscribe(_ => this.router.navigate([`space/${this.spaceId}`]));
+    }
   }
 
   onSave() {
-    console.log(this.expense);
-    if (!this.expense!.expense_id) {
-      console.log('yop');
-      this.apiService.createExpense(this.spaceId, this.expense!).subscribe();
-      this.router.navigate([`space/${this.spaceId}`]);
-    } else {
+    // if (this.expense) {
+    //   console.log('yop');
+    //   this.apiService.createExpense(
+    //     this.spaceId, 
+    //     this.expense.expense_description, 
+    //     this.expense.expense_cost)
+    //     .subscribe(_ => this.router.navigate([`space/${this.spaceId}`]));
+    // } else {
+    if (this.expense) {
       this.editMode = false;
       this.apiService.patchExpense(this.spaceId, this.expense!).subscribe();
     }

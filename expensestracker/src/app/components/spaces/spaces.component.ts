@@ -13,8 +13,6 @@ import { DataService } from 'src/app/services/data.service';
   styleUrls: ['./spaces.component.css']
 })
 export class SpacesComponent {
-  spaces: Space[] = [];
-
   constructor(
     private router: Router, 
     private apiService: ApiService, 
@@ -26,7 +24,6 @@ export class SpacesComponent {
   }
 
   onSpace(spaceId: string) {
-    console.log('here');
     this.router.navigate([`space/${spaceId}`]);
   }
 
@@ -38,19 +35,17 @@ export class SpacesComponent {
   onDelete(event: MouseEvent, spaceId: string) {
     event.stopPropagation();
     this.apiService.deleteSpace(spaceId).subscribe(_ => {
-      this.spaces = this.dataService.removeSpaceById(spaceId);
+      this.dataService.removeSpaceById(spaceId);
     });
   }
 
   openCreateSpaceDialog() {
-    // this.router.navigate([`space/0/edit`]);
     const dialogRef = this.dialog.open(CreateSpaceDialogComponent);
 
     // Add space to the spaces if created
     dialogRef.afterClosed().subscribe(space => {
       if (space) {
         this.dataService.spaces.push(space);
-        this.spaces = this.dataService.spaces;
       }
     });
   }

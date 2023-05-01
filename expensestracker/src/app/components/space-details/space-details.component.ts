@@ -14,6 +14,7 @@ import { SpacesComponent } from '../spaces/spaces.component';
 export class SpaceDetailsComponent {
   space?: Space;
   memberToAdd = '';
+  categoryToAdd = '';
 
   constructor(
     private route: ActivatedRoute, 
@@ -27,6 +28,12 @@ export class SpaceDetailsComponent {
     
     // Get space from its space ID
     this.space = this.dataService.findSpaceById(spaceId);
+
+    // Get category from API
+    if (this.space) {
+      this.apiService.getCategoriesFromSpace(this.space.space_id)
+        .subscribe(categories => this.dataService.categories = categories);
+    }
   }
 
   onSave() {
@@ -69,5 +76,24 @@ export class SpaceDetailsComponent {
     }
 
     this.router.navigate([`spaces`]);
+  }
+
+  addCategoryToSpace() {
+    if (this.space) {
+      this.apiService.createCategoryToSpace(this.space.space_id, this.categoryToAdd)
+        .subscribe(category => {
+          this.dataService.categories.push(category);
+        })
+    }
+  }
+
+  deleteCategoryFromSpace(categoryId: string) {
+    if (this.space) {
+      this.apiService.deleteCategoryFromSpace(this.space.space_id, categoryId)
+        .subscribe(_ => {
+          this.dataService.categories = this.dataService
+            .categories.filter(category => category.category_id != categoryId);
+        })
+    }
   }
 }

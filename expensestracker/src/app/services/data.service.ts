@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 
-import { Space } from '../models/space';
+import { Category } from '../models/category';
 import { Expense } from '../models/expense';
+import { Space } from '../models/space';
 
 @Injectable({
   providedIn: 'root'
@@ -9,6 +10,7 @@ import { Expense } from '../models/expense';
 export class DataService {
   spaces: Space[] = [];
   expenses: Expense[] = [];
+  categories: Category[] = [];
 
   constructor() { }
 

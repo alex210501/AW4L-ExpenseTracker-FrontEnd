@@ -1,1 +1,15 @@
-<p>create-expense-dialog works!</p>
+<h1 mat-dialog-title>Create expense</h1>
+<div mat-dialog-content>
+  <mat-form-field appearance="fill">
+    <mat-label>Description</mat-label>
+    <input matInput [(ngModel)]="expenseDescription" />
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Cost</mat-label>
+    <input type="number" matInput [(ngModel)]="expenseCost" />
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-button cdkFocusInitial (click)="onCreate()">Create</button>
+</div>

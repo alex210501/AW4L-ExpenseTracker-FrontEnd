@@ -9,6 +9,7 @@ import { Expense } from '../models/expense';
 import { Space } from '../models/space';
 import { Token } from '../models/token';
 import { User } from '../models/user';
+import { Category } from '../models/category';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -29,6 +30,10 @@ const SPACE_ID_URL = `${URL}/space/:space_id`;
 // Expense
 const EXPENSE_URL = `${URL}/space/:space_id/expense`;
 const EXPENSE_ID_URL = `${URL}/space/:space_id/expense/:expense_id`;
+
+// Category
+const CATEGORY_URL = `${URL}/space/:space_id/category`;
+const CATEGORY_ID_URL = `${URL}/space/:space_id/category/:category_id`;
 
 // Space User
 const SPACE_USER_URL = `${URL}/space/:space_id/user`;
@@ -117,19 +122,21 @@ export class ApiService {
     return this.http.get<Expense[]>(EXPENSE_URL.replace(':space_id', spaceId), httpOptions);
   }
 
-  createExpense(spaceId: string, expense: Expense): Observable<Map<string, string>> {
+  createExpense(
+    spaceId: string, 
+    expenseDescription: 
+    string, expenseCost: number): Observable<Expense> {
     const expenseJson = {
-      expense_description: expense.expense_description,
-      expense_cost: expense.expense_cost,
+      expense_description: expenseDescription,
+      expense_cost: expenseCost,
       expense_date: new Date(),
     };
 
-    return this.http.post<Map<string, string>>(
+    return this.http.post<Expense>(
       EXPENSE_URL.replace(':space_id', spaceId), 
       expenseJson, 
       httpOptions).pipe(
-        tap(a => console.log(a)),
-        catchError(this.handleError<Map<string, string>>('Create Expense')),
+        catchError(this.handleError<Expense>('Create Expense')),
       );
   }
 
@@ -149,6 +156,28 @@ export class ApiService {
     return this.http.delete<Expense>(
       EXPENSE_ID_URL.replace(':space_id', spaceId).replace(':expense_id', expenseId), 
       httpOptions);
+  }
+
+  getCategoriesFromSpace(spaceId: string): Observable<Category[]> {
+    return this.http.get<Category[]>(
+      CATEGORY_URL.replace(':space_id', spaceId),
+      httpOptions,
+    ).pipe(catchError(this.handleError<Category[]>('getCategories')));
+  }
+
+  createCategoryToSpace(spaceId: string, categoryTitle: string): Observable<Category> {
+    return this.http.post<Category>(
+      CATEGORY_URL.replace(':space_id', spaceId),
+      { category_title: categoryTitle },
+      httpOptions
+    ).pipe(catchError(this.handleError<Category>('createCategory')));
+  }
+
+  deleteCategoryFromSpace(spaceId: string, categoryId: string): Observable<Category> {
+    return this.http.delete<Category>(
+      CATEGORY_ID_URL.replace(':space_id', spaceId).replace(':category_id', categoryId),
+      httpOptions,
+    ).pipe(catchError(this.handleError<Category>('deleteCategory')));
   }
 
   addUserToSpace(spaceId: string, username: string): Observable<Collaborator> {
