@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
+import { Location } from '@angular/common';
 
 import { ApiService } from 'src/app/services/api.service';
 import { CreateExpenseDialogComponent } from '../dialogs/create-expense-dialog/create-expense-dialog.component';
@@ -18,6 +19,7 @@ export class UserSpaceComponent {
 
   constructor(
     private route: ActivatedRoute, 
+    private location: Location,
     private router: Router,
     private apiService: ApiService, 
     public dataService: DataService,
@@ -58,7 +60,7 @@ export class UserSpaceComponent {
     });
   }
 
-  // addExpense() {
-  //   this.router.navigate([`space/${this.spaceId}/expense/0`]);
-  // }
+  goBack() {
+    this.location.back();
+  }
 }

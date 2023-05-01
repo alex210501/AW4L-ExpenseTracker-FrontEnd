@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 import { ApiService } from 'src/app/services/api.service';
 import { DataService } from 'src/app/services/data.service';
@@ -19,6 +20,7 @@ export class ExpenseDetailComponent {
 
   constructor(
     private route: ActivatedRoute,
+    private location: Location,
     private router: Router,
     private apiService: ApiService,
     public dataService: DataService
@@ -55,6 +57,10 @@ export class ExpenseDetailComponent {
 
   onCancel() {
     this.editMode = false;
+  }
+
+  goBack() {
+    this.location.back();
   }
 
   _loadCategory() {

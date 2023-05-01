@@ -1,6 +1,6 @@
 <mat-toolbar>
-  <button mat-icon-button aria-label="Example icon-button with menu icon">
-    <mat-icon>menu</mat-icon>
+  <button mat-icon-button (click)="goBack()">
+    <mat-icon>arrow_back</mat-icon>
   </button>
   <span *ngIf="expense">{{expense.expense_description}}</span>
   <ng-template #elseBlock>No name</ng-template>

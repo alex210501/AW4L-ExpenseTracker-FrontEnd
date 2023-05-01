@@ -1,5 +1,6 @@
 import { Component, createPlatform } from '@angular/core';
 import { ActivatedRoute, Data, Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 import { ApiService } from 'src/app/services/api.service';
 import { DataService } from 'src/app/services/data.service';
@@ -17,7 +18,8 @@ export class SpaceDetailsComponent {
   categoryToAdd = '';
 
   constructor(
-    private route: ActivatedRoute, 
+    private route: ActivatedRoute,
+    private location: Location,
     private router: Router,
     private apiService: ApiService,
     public dataService: DataService) {}
@@ -95,5 +97,9 @@ export class SpaceDetailsComponent {
             .categories.filter(category => category.category_id != categoryId);
         })
     }
+  }
+
+  goBack() {
+    this.location.back();
   }
 }
