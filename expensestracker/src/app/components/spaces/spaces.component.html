@@ -5,11 +5,19 @@
   <span>Spaces</span>
 </mat-toolbar>
 
- <li *ngFor="let space of dataService.spaces;">
-  <mat-card (click)="onSpace(space.space_id)">
-    <mat-card-header>
-      <mat-card-title>{{space.space_name}}</mat-card-title>
-      <mat-card-subtitle>{{space.space_description}}</mat-card-subtitle>
-    </mat-card-header>
-  </mat-card>
- </li>
+<div *ngFor="let space of dataService.spaces;">
+  <p>{{space.space_name}}</p>
+</div>
+
+<mat-list *ngFor="let space of dataService.spaces;">
+  <mat-list-item>
+    <span>{{space.space_name}}</span>
+    <span matListItemLine>{{space.space_description}}</span>
+    <button mat-icon-button (click)="onEdit(space.space_id)">
+      <mat-icon>edit</mat-icon>
+    </button>
+    <button mat-icon-button>
+      <mat-icon>delete</mat-icon>
+    </button>
+  </mat-list-item>
+</mat-list>

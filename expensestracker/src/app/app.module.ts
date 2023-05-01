@@ -6,6 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card'; 
 import { MatIconModule } from '@angular/material/icon'; 
 import { MatInputModule } from '@angular/material/input';
+ import {MatListModule} from '@angular/material/list'; 
 import { MatToolbarModule } from '@angular/material/toolbar'; 
 
 import { AppComponent } from './app.component';
@@ -16,6 +17,7 @@ import { SignupComponent } from './components/signup/signup.component';
 import { SpacesComponent } from './components/spaces/spaces.component';
 import { UserSpaceComponent } from './components/user-space/user-space.component';
 import { ExpenseDetailComponent } from './components/expense-detail/expense-detail.component';
+import { SpaceDetailsComponent } from './components/space-details/space-details.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,8 @@ import { ExpenseDetailComponent } from './components/expense-detail/expense-deta
     SignupComponent,
     SpacesComponent,
     UserSpaceComponent,
-    ExpenseDetailComponent
+    ExpenseDetailComponent,
+    SpaceDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -35,6 +38,7 @@ import { ExpenseDetailComponent } from './components/expense-detail/expense-deta
     MatCardModule,
     MatIconModule,
     MatInputModule,
+    MatListModule,
     MatToolbarModule,
     FormsModule,
   ],

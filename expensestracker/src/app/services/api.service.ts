@@ -4,6 +4,7 @@ import { map, catchError, tap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 
 import { Credentials } from '../models/credentials';
+import { Collaborator } from '../models/collaborator';
 import { Expense } from '../models/expense';
 import { Space } from '../models/space';
 import { Token } from '../models/token';
@@ -23,10 +24,15 @@ const CREATE_USER_URL = `${URL}/user`;
 
 // Space
 const SPACES_URL = `${URL}/space`;
+const SPACE_ID_URL = `${URL}/space/:space_id`;
 
 // Expense
 const EXPENSE_URL = `${URL}/space/:space_id/expense`;
 const EXPENSE_ID_URL = `${URL}/space/:space_id/expense/:expense_id`;
+
+// Space User
+const SPACE_USER_URL = `${URL}/space/:space_id/user`;
+const SPACE_USER_ID_URL = `${URL}/space/:space_id/user/:username`;
 
 @Injectable({
   providedIn: 'root'
@@ -77,6 +83,19 @@ export class ApiService {
     return this.http.get<Space[]>(SPACES_URL, httpOptions);
   }
 
+  patchSpace(space: Space): Observable<Map<string, string>> {
+    const spaceJson = {
+      space_name: space.space_name,
+      space_description: space.space_description,
+    };
+
+    return this.http.patch<Map<string, string>>(
+      SPACE_ID_URL.replace(':space_id', space.space_id),
+      spaceJson,
+      httpOptions,
+    ).pipe(catchError(this.handleError<Map<string, string>>('updateSpace')));
+  }
+
   getExpensesFromSpaceId(spaceId: string): Observable<Expense[]> {
     return this.http.get<Expense[]>(EXPENSE_URL.replace(':space_id', spaceId), httpOptions);
   }
@@ -113,5 +132,20 @@ export class ApiService {
     return this.http.delete<Expense>(
       EXPENSE_ID_URL.replace(':space_id', spaceId).replace(':expense_id', expenseId), 
       httpOptions);
+  }
+
+  addUserToSpace(spaceId: string, username: string): Observable<Collaborator> {
+    return this.http.post<Collaborator>(
+      SPACE_USER_URL.replace(':space_id', spaceId),
+      { username },
+      httpOptions,
+    ).pipe(catchError(this.handleError<Collaborator>('addUserToSpace')));
+  }
+
+  deleteUserFromSpace(spaceId: string, username: string): Observable<Object> {
+    return this.http.delete(
+      SPACE_USER_ID_URL.replace(':space_id', spaceId).replace(':username', username),
+      httpOptions,
+    ).pipe(catchError(this.handleError<Object>('deleteUserFromSpace')));
   }
 }

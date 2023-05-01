@@ -22,4 +22,8 @@ export class SpacesComponent {
   onSpace(spaceId: string) {
     this.router.navigate([`space/${spaceId}`]);
   }
+
+  onEdit(spaceId: string) {
+    this.router.navigate([`space/${spaceId}/edit`]);
+  }
 }
