@@ -6,15 +6,13 @@
   <ng-template #elseBlock>No name</ng-template>
 </mat-toolbar>
 
-<li *ngFor="let expense of dataService.expenses;">
-  <mat-card (click)="onExpense(expense.expense_id)">
-    <mat-card-header>
-      <mat-card-title>{{expense.expense_description}}</mat-card-title>
-      <mat-card-subtitle>By {{expense.expense_paid_by}}</mat-card-subtitle>
-    </mat-card-header>
-  </mat-card>
-</li>
+<div class="expense-body">
+  <mat-nav-list class="expense-tile" *ngFor="let expense of dataService.expenses;" (click)="onExpense(expense.expense_id)">
+    <span matListItemTitle class="expense-line">{{expense.expense_description}}</span>
+    <span matListItemLine class="expense-line">Payd by {{expense.expense_paid_by}}</span>
+  </mat-nav-list>
 
-<button mat-fab color="primary" (click)="openCreateExpenseDialog()">
-  <mat-icon>add</mat-icon>
-</button>
+  <button mat-fab class="add-button" color="primary" (click)="openCreateExpenseDialog()">
+    <mat-icon>add</mat-icon>
+  </button>
+</div>

@@ -17,15 +17,17 @@ export class SignupComponent {
     user_email: '',
     user_password: '',
   };
+  retype_password = '';
 
   constructor(private router: Router, private apiService: ApiService) {};
 
-  onCreate(event: any) {
+  onCreate() {
     console.log(this.user);
     this.apiService.createUser(this.user);
+    this.router.navigate(['login']);
   }
 
-  goToLogin(event: any) {
+  goToLogin() {
     this.router.navigate(['login']);
   }
 }

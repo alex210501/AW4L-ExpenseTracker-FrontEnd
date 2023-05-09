@@ -4,20 +4,26 @@
   </button>
   <span>Spaces</span>
 </mat-toolbar>
-
-<mat-list *ngFor="let space of dataService.spaces;">
-  <mat-list-item (click)="onSpace(space.space_id)">
-    <span matListItemTitle>{{space.space_name}}</span>
-    <span matListItemLine>{{space.space_description}}</span>
-    <button mat-icon-button (click)="onEdit($event, space.space_id)">
-      <mat-icon>edit</mat-icon>
-    </button>
-    <button mat-icon-button (click)="onDelete($event, space.space_id)">
-      <mat-icon>delete</mat-icon>
-    </button>
-  </mat-list-item>
-</mat-list>
-
-<button mat-fab color="primary" (click)="openCreateSpaceDialog()">
-  <mat-icon>add</mat-icon>
-</button>
+<div class="space-body">
+  <mat-nav-list class="space-list" *ngFor="let space of dataService.spaces;">
+    <div class="space-tile" (click)="onSpace(space.space_id)">
+      <div>
+        <span matListItemTitle class="space-title">{{space.space_name}}</span>
+        <span matListItemLine class="space-subtitle">{{space.space_description}}</span>
+      </div>
+      
+      <div>
+        <button mat-icon-button color="primary" (click)="onEdit($event, space.space_id)">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button color="primary" (click)="onDelete($event, space.space_id)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+    </div>
+  </mat-nav-list>
+  
+  <button mat-fab class="add-button" color="primary" (click)="openCreateSpaceDialog()">
+    <mat-icon>add</mat-icon>
+  </button>
+</div>

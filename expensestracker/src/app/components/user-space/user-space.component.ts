@@ -7,6 +7,7 @@ import { ApiService } from 'src/app/services/api.service';
 import { CreateExpenseDialogComponent } from '../dialogs/create-expense-dialog/create-expense-dialog.component';
 import { DataService } from 'src/app/services/data.service';
 import { Space } from 'src/app/models/space';
+import { Expense } from 'src/app/models/expense';
 
 @Component({
   selector: 'app-user-space',

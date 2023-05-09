@@ -1,51 +1,58 @@
-<h1>Sign Up</h1>
+<mat-card class="signup-body">
+    <mat-card-header class="signup-title">
+        <mat-card-title>Signup</mat-card-title>
+    </mat-card-header>
+    <mat-card-content class="signup-content">
+        <table cellspacing="1em">
+            <tr>
+                <td colspan="2">
+                    <mat-form-field class="signup-input">
+                        <mat-label>Username</mat-label>
+                        <input matInput type="text" [(ngModel)]="user.user_username">
+                    </mat-form-field>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <mat-form-field class="signup-input">
+                        <mat-label>Firstname</mat-label>
+                        <input matInput type="text" [(ngModel)]="user.user_firstname">
+                    </mat-form-field>
+                </td>
+                <td colspan="2">
+                    <mat-form-field class="signup-input">
+                        <mat-label>Lastname</mat-label>
+                        <input matInput type="text" [(ngModel)]="user.user_lastname">
+                    </mat-form-field>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <mat-form-field class="signup-input">
+                        <mat-label>Email</mat-label>
+                        <input matInput type="text" [(ngModel)]="user.user_email">
+                    </mat-form-field>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <mat-form-field class="signup-input">
+                        <mat-label>Password</mat-label>
+                        <input matInput type="password" [(ngModel)]="user.user_password">
+                    </mat-form-field>
+                </td>
+                <td>
+                    <mat-form-field class="signup-input">
+                        <mat-label >Retype password</mat-label>
+                        <input matInput type="password" [(ngModel)]="retype_password">
+                    </mat-form-field>
+                </td>
+            </tr>
+        </table>
 
-<table>
-    <tr>
-        <td>
-            <mat-form-field>
-                <mat-label>Username</mat-label>
-                <input matInput type="text" [(ngModel)]="user.user_username">
-            </mat-form-field>
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <mat-form-field>
-                <mat-label>Firstname</mat-label>
-                <input matInput type="text" [(ngModel)]="user.user_firstname">
-            </mat-form-field>
-        </td>
-        <td>
-            <mat-form-field>
-                <mat-label>Lastname</mat-label>
-                <input matInput type="text" [(ngModel)]="user.user_lastname">
-            </mat-form-field>
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <mat-form-field>
-                <mat-label>Email</mat-label>
-                <input matInput type="text" [(ngModel)]="user.user_email">
-            </mat-form-field>
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <mat-form-field>
-                <mat-label>Password</mat-label>
-                <input matInput type="password" [(ngModel)]="user.user_password">
-            </mat-form-field>
-        </td>
-    </tr>
-
-    <tr>
-        <td>
-            <button mat-raised-button color="primary" (click)="onCreate($event)">Create</button>
-        </td>
-        <td>
-            <button mat-raised-button color="primary" (click)="goToLogin($event)">Login</button>
-        </td>
-    </tr>
-</table>
+        <div class="signup-buttons">
+            <button mat-raised-button color="primary" (click)="onCreate()">Create</button>
+            <button mat-raised-button color="primary"(click)="goToLogin()">Login</button>
+        </div>
+      </mat-card-content>
+</mat-card>
