@@ -7,12 +7,94 @@
 </mat-toolbar>
 
 <div class="expense-body">
-  <mat-nav-list class="expense-tile" *ngFor="let expense of dataService.expenses;" (click)="onExpense(expense.expense_id)">
-    <span matListItemTitle class="expense-line">{{expense.expense_description}}</span>
-    <span matListItemLine class="expense-line">Payd by {{expense.expense_paid_by}}</span>
-  </mat-nav-list>
+  <!-- <tr> -->
+    <div class="expense-list">
+      <mat-nav-list class="expense-tile" *ngFor="let expense of dataService.expenses;" (click)="onExpense(expense.expense_id)">
+        <span matListItemTitle class="expense-line">{{expense.expense_description}}</span>
+        <span matListItemLine class="expense-line">Payd by {{expense.expense_paid_by}}</span>
+      </mat-nav-list>
+    
+      <button mat-fab class="add-button" color="primary" (click)="openCreateExpenseDialog()">
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
+    <div *ngIf="expense && expenseToEdit" class="expense-details">
+      <mat-card class="expense-details-card">
+        <mat-card-header>
+          <mat-card-title>{{expense.expense_description}}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <table>
+            <tr>
+              <td class="field-test">Description</td>
+              <td>
+                <span *ngIf="!editMode; else editModeDesc">{{expense.expense_description}}</span>
+                <ng-template #editModeDesc>
+                  <mat-form-field >
+                    <mat-label>Description</mat-label>
+                    <input matInput type="text" [(ngModel)]="expenseToEdit.expense_description">
+                  </mat-form-field>
+                </ng-template>
+              </td>
+            </tr>
+            <tr>
+              <td class="field-test">Cost</td>
+              <td>
+                <span *ngIf="!editMode; else editModeCost">{{expense.expense_cost}}</span>
+                <ng-template #editModeCost>
+                  <mat-form-field>
+                    <mat-label>Cost</mat-label>
+                    <input matInput type="text" [(ngModel)]="expenseToEdit.expense_cost">
+                  </mat-form-field>
+                </ng-template>
+              </td>
+            </tr>
+            <tr>
+              <td class="field-test">Author</td>
+              <td>
+                <span>{{expense.expense_paid_by}}</span>
+              </td>
+            </tr>
+            <tr>
+              <td class="field-test">Date</td>
+              <td>
+                <span>{{expense.expense_date}}</span>
+              </td>
+            </tr>
 
-  <button mat-fab class="add-button" color="primary" (click)="openCreateExpenseDialog()">
-    <mat-icon>add</mat-icon>
-  </button>
-</div>
+            <tr>
+              <td class="field-test">Category</td>
+              <td>
+                <span *ngIf="!editMode; else editModeCategory">
+                  <p *ngIf="category; else noCategory">{{category.category_title}}</p>
+                  <ng-template #noCategory>None</ng-template>
+                </span>
+                <ng-template #editModeCategory>
+                  <mat-form-field>
+                    <mat-label>Category</mat-label>
+                    <mat-select (selectionChange)="onCategoryChange()" [(value)]="expenseToEdit.expense_category">
+                      <mat-option>None</mat-option>
+                      <mat-option *ngFor="let cat of dataService.categories" value={{cat.category_id}}>
+                        {{cat.category_title}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </ng-template>
+              </td>
+            </tr>
+          </table>
+        </mat-card-content>
+        <mat-card-actions class="expense-buttons">
+          <button *ngIf="!editMode; else saveButton" mat-raised-button color="primary" (click)="onEdit()">Edit</button>
+          <ng-template #saveButton>
+            <button  mat-raised-button color="primary" (click)="onSave()">Save</button>
+          </ng-template>
+          <button *ngIf="!editMode; else cancelButton" mat-raised-button color="primary" (click)="onDelete()">Delete</button>
+          <ng-template #cancelButton>
+            <button mat-raised-button color="primary" (click)="onCancel()">Cancel</button>
+          </ng-template>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  <!-- </tr> -->
+  </div>

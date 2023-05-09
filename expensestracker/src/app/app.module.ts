@@ -16,7 +16,6 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { ExpenseDetailComponent } from './components/expense-detail/expense-detail.component';
 import { LoginComponent } from './components/login/login.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { SpacesComponent } from './components/spaces/spaces.component';
@@ -32,7 +31,6 @@ import { CreateExpenseDialogComponent } from './components/dialogs/create-expens
     SignupComponent,
     SpacesComponent,
     UserSpaceComponent,
-    ExpenseDetailComponent,
     SpaceDetailsComponent,
     CreateSpaceDialogComponent,
     CreateExpenseDialogComponent

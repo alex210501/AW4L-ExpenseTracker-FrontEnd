@@ -1,5 +1,21 @@
 .expense-body {
-    width: 80%;
+    width: 100%;
+    margin-top: 1em;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.expense-list {
+    width: 45%; 
+    float: left;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 2em 0 1em;
+}
+
+.expense-details {
+    width: 45%; 
+    float: right;
     margin-left: auto;
     margin-right: auto;
 }
@@ -8,7 +24,6 @@
     padding: 1em;
     border: 2px solid grey;
     border-radius: 1em;
-    margin-top: 1em;
     margin-bottom: 1em;
 }
 
@@ -19,4 +34,22 @@
 .add-button {
     margin-top: 1em;
     float: right;
+}
+
+.field-test {
+    text-align: end;
+    padding-right: 2em;
+}
+
+.expense-details-card {
+    width: 60%;
+    border: 2px solid grey;
+    border-radius: 1em;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.expense-buttons {
+    display: flex;
+    justify-content: space-between;
 }
