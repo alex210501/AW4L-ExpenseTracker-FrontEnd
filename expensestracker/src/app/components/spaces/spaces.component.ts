@@ -23,6 +23,10 @@ export class SpacesComponent {
     this.apiService.getSpaces().subscribe(spaces => this.dataService.spaces = spaces);
   }
 
+  onLogout() {
+    this.apiService.logout().subscribe(() => this.router.navigate(['login']));
+  }
+
   onSpace(spaceId: string) {
     this.router.navigate([`space/${spaceId}`]);
   }

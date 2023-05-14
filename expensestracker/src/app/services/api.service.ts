@@ -18,7 +18,7 @@ const httpOptions = {
 };
 const URL = 'https://alejandro-borbolla.com/expensestracker';
 const LOGIN_URL = `${URL}/auth/login`;
-const LOGOUT_URL = `${URL}/logout`;
+const LOGOUT_URL = `${URL}/auth/logout`;
 
 // User Management
 const CREATE_USER_URL = `${URL}/user`;
@@ -71,7 +71,8 @@ export class ApiService {
   }
 
   logout() {
-    console.log('Logout')
+    return this.http.post(LOGOUT_URL, {}, httpOptions)
+      .pipe(catchError(this.handleError('logout')));
   }
 
   createUser(user: User) {

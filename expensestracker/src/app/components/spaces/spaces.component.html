@@ -1,7 +1,10 @@
 <mat-toolbar>
-  <button mat-icon-button aria-label="Example icon-button with menu icon">
+  <button mat-icon-button [matMenuTriggerFor]="menu">
     <mat-icon>menu</mat-icon>
   </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item (click)="onLogout()">Logout</button>
+  </mat-menu>
   <span>Spaces</span>
 </mat-toolbar>
 <div class="space-body">
