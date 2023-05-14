@@ -1,11 +1,13 @@
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
+import { ClipboardModule } from '@angular/cdk/clipboard'; 
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card'; 
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatDividerModule } from '@angular/material/divider';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon'; 
 import { MatInputModule } from '@angular/material/input';
@@ -40,11 +42,13 @@ import { CreateExpenseDialogComponent } from './components/dialogs/create-expens
     AppRoutingModule,
     BrowserAnimationsModule,
     BrowserModule,
+    ClipboardModule,
     FormsModule,
     HttpClientModule,
     MatButtonModule,
     MatCardModule,
     MatDialogModule,
+    MatDividerModule,
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,

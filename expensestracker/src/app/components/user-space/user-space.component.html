@@ -7,7 +7,6 @@
 </mat-toolbar>
 
 <div class="expense-body">
-  <!-- <tr> -->
     <div class="expense-list">
       <mat-nav-list class="expense-tile" *ngFor="let expense of dataService.expenses;" (click)="onExpense(expense.expense_id)">
         <span matListItemTitle class="expense-line">{{expense.expense_description}}</span>
@@ -66,7 +65,7 @@
               <td class="field-test">Category</td>
               <td>
                 <span *ngIf="!editMode; else editModeCategory">
-                  <p *ngIf="category; else noCategory">{{category.category_title}}</p>
+                  <span *ngIf="category; else noCategory">{{category.category_title}}</span>
                   <ng-template #noCategory>None</ng-template>
                 </span>
                 <ng-template #editModeCategory>
@@ -96,5 +95,4 @@
         </mat-card-actions>
       </mat-card>
     </div>
-  <!-- </tr> -->
   </div>

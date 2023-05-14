@@ -1,0 +1,17 @@
+.space-details-content {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.list-item {
+    border-bottom: grey solid 1px;
+}
+
+.space-id {
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.space-id-col {
+    display: flex;
+}
