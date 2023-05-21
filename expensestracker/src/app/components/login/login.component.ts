@@ -15,7 +15,8 @@ export class LoginComponent {
   constructor(private router: Router, private apiService: ApiService){}
 
   onLogin(event: any) {
-    this.apiService.login(this.credentials).subscribe(_ => this.router.navigate(['spaces']));
+    this.apiService.login(this.credentials, (_) => console.log('hey'))
+        .subscribe(_ => this.router.navigate(['spaces']));
   }
 
   goToSignUp(event: any) {

@@ -39,6 +39,9 @@ const CATEGORY_ID_URL = `${URL}/space/:space_id/category/:category_id`;
 const SPACE_USER_URL = `${URL}/space/:space_id/user`;
 const SPACE_USER_ID_URL = `${URL}/space/:space_id/user/:username`;
 
+// Define the ErrorCallback type
+type ErrorCallback = (error: any) => void;
+
 @Injectable({
   providedIn: 'root'
 })
@@ -47,39 +50,36 @@ export class ApiService {
 
   constructor(private http: HttpClient) { }
 
-  private handleError<T>(operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-  
-      // TODO: send the error to remote logging infrastructure
-      console.error(error); // log to console instead
-  
-      // TODO: better job of transforming error for user consumption
-  
-      // Let the app keep running by returning an empty result.
-      return of(result as T);
-    };
-  }  
+  private handleError(error: any, errorCallback?: ErrorCallback): Observable<never> {
+    if (errorCallback) {
+      errorCallback(error);
+    }
 
-  login(credentials: Credentials) {
+    console.error('An error occurred:', error);
+
+    return of();
+  }
+
+  login(credentials: Credentials, errorCallback?: ErrorCallback) {
     return this.http.post<Token>(LOGIN_URL, JSON.stringify(credentials), httpOptions).pipe(
       tap(token => {
         this.token = token.token;
         httpOptions.headers = httpOptions.headers.set('Authorization', `Bearer ${this.token}`);
       }),
-      catchError(catchError(this.handleError<Token>('login'))),
+      catchError((err) => this.handleError(err, errorCallback)),
     );
   }
 
   logout() {
     return this.http.post(LOGOUT_URL, {}, httpOptions)
-      .pipe(catchError(this.handleError('logout')));
+    //   .pipe(catchError(this.handleError('logout')));
   }
 
-  createUser(user: User) {
-    this.http.post<User>(CREATE_USER_URL, JSON.stringify(user), httpOptions).pipe(
+  createUser(user: User, errorCallback?: ErrorCallback) {
+    return this.http.post<User>(CREATE_USER_URL, JSON.stringify(user), httpOptions).pipe(
       tap(_ => console.log('User created')),
-      catchError(this.handleError<User>('createUser')),
-    ).subscribe();
+      catchError((err) => this.handleError(err, errorCallback)),
+    );
   }
 
   getSpaces(): Observable<Space[]> {
@@ -93,7 +93,7 @@ export class ApiService {
     };
 
     return this.http.post(SPACES_URL, spaceJson, httpOptions)
-      .pipe(catchError(this.handleError<Object>('createSpace')));
+    //   .pipe(catchError(this.handleError<Object>('createSpace')));
   }
 
   patchSpace(space: Space): Observable<Space> {
@@ -106,14 +106,16 @@ export class ApiService {
       SPACE_ID_URL.replace(':space_id', space.space_id),
       spaceJson,
       httpOptions,
-    ).pipe(catchError(this.handleError<Space>('updateSpace')));
+    )
+    // .pipe(catchError(this.handleError<Space>('updateSpace')));
   }
 
   deleteSpace(spaceId: string) {
     return this.http.delete(
       SPACE_ID_URL.replace(':space_id', spaceId),
       httpOptions,
-    ).pipe(catchError(this.handleError<Object>('deleteSpace')));
+    )
+    // .pipe(catchError(this.handleError<Object>('deleteSpace')));
   }
 
   getExpensesFromSpaceId(spaceId: string): Observable<Expense[]> {
@@ -134,7 +136,7 @@ export class ApiService {
       EXPENSE_URL.replace(':space_id', spaceId), 
       expenseJson, 
       httpOptions).pipe(
-        catchError(this.handleError<Expense>('Create Expense')),
+        // catchError(this.handleError<Expense>('Create Expense')),
       );
   }
 
@@ -163,7 +165,8 @@ export class ApiService {
     return this.http.get<Category[]>(
       CATEGORY_URL.replace(':space_id', spaceId),
       httpOptions,
-    ).pipe(catchError(this.handleError<Category[]>('getCategories')));
+    )
+    // .pipe(catchError(this.handleError<Category[]>('getCategories')));
   }
 
   createCategoryToSpace(spaceId: string, categoryTitle: string): Observable<Category> {
@@ -171,14 +174,16 @@ export class ApiService {
       CATEGORY_URL.replace(':space_id', spaceId),
       { category_title: categoryTitle },
       httpOptions
-    ).pipe(catchError(this.handleError<Category>('createCategory')));
+    )
+    // .pipe(catchError(this.handleError<Category>('createCategory')));
   }
 
   deleteCategoryFromSpace(spaceId: string, categoryId: string): Observable<Category> {
     return this.http.delete<Category>(
       CATEGORY_ID_URL.replace(':space_id', spaceId).replace(':category_id', categoryId),
       httpOptions,
-    ).pipe(catchError(this.handleError<Category>('deleteCategory')));
+    )
+    // .pipe(catchError(this.handleError<Category>('deleteCategory')));
   }
 
   addUserToSpace(spaceId: string, username: string): Observable<Collaborator> {
@@ -186,13 +191,15 @@ export class ApiService {
       SPACE_USER_URL.replace(':space_id', spaceId),
       { username },
       httpOptions,
-    ).pipe(catchError(this.handleError<Collaborator>('addUserToSpace')));
+    )
+    // .pipe(catchError(this.handleError<Collaborator>('addUserToSpace')));
   }
 
   deleteUserFromSpace(spaceId: string, username: string): Observable<Object> {
     return this.http.delete(
       SPACE_USER_ID_URL.replace(':space_id', spaceId).replace(':username', username),
       httpOptions,
-    ).pipe(catchError(this.handleError<Object>('deleteUserFromSpace')));
+    )
+    // .pipe(catchError(this.handleError<Object>('deleteUserFromSpace')));
   }
 }

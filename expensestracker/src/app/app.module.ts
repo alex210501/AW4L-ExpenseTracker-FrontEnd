@@ -15,6 +15,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSelectModule } from '@angular/material/select'; 
 import { MatToolbarModule } from '@angular/material/toolbar'; 
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 import { AppComponent } from './app.component';
@@ -56,6 +57,7 @@ import { CreateExpenseDialogComponent } from './components/dialogs/create-expens
     MatMenuModule,
     MatSelectModule,
     MatToolbarModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
