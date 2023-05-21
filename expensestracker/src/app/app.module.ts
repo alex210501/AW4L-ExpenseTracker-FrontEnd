@@ -27,6 +27,7 @@ import { SpaceDetailsComponent } from './components/space-details/space-details.
 import { UserSpaceComponent } from './components/user-space/user-space.component';
 import { CreateSpaceDialogComponent } from './components/dialogs/create-space-dialog/create-space-dialog.component';
 import { CreateExpenseDialogComponent } from './components/dialogs/create-expense-dialog/create-expense-dialog.component';
+import { ErrorDialogComponent } from './components/dialogs/error-dialog/error-dialog.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { CreateExpenseDialogComponent } from './components/dialogs/create-expens
     UserSpaceComponent,
     SpaceDetailsComponent,
     CreateSpaceDialogComponent,
-    CreateExpenseDialogComponent
+    CreateExpenseDialogComponent,
+    ErrorDialogComponent
   ],
   imports: [
     AppRoutingModule,
