@@ -1,15 +1,29 @@
 <h1 mat-dialog-title>Create space</h1>
-<div mat-dialog-content>
-  <mat-form-field appearance="fill">
-    <mat-label>Name</mat-label>
-    <input matInput [(ngModel)]="spaceName" />
-  </mat-form-field>
-  <mat-form-field appearance="fill">
-    <mat-label>Description</mat-label>
-    <input matInput [(ngModel)]="spaceDescription" />
-  </mat-form-field>
+<div mat-dialog-content class="create-name-description">
+    <div class="create-space-form">
+        <mat-form-field appearance="fill">
+          <mat-label>Name</mat-label>
+          <input matInput [(ngModel)]="spaceName" />
+        </mat-form-field><br/>
+        <mat-form-field appearance="fill">
+          <mat-label>Description</mat-label>
+          <input matInput [(ngModel)]="spaceDescription" />
+        </mat-form-field>
+    </div>
+
+    <h2 class="or-text">Or</h2>
+
+    <div class="join-div">
+        <mat-form-field class="space-id" appearance="fill">
+            <mat-label>Space ID</mat-label>
+            <input matInput [(ngModel)]="spaceId" />
+        </mat-form-field>
+        <button class="join-button" mat-button color="primary" (click)="onCreate()">Join</button>
+    </div>
+    
+    <div mat-dialog-actions class="action-buttons">
+      <button mat-button mat-dialog-close color="primary" class="cancel-button">Cancel</button>
+      <button mat-button color="primary" class="create-button" (click)="onCreate()">Create</button>
+    </div>
 </div>
-<div mat-dialog-actions>
-  <button mat-button mat-dialog-close>Cancel</button>
-  <button mat-button cdkFocusInitial (click)="onCreate()">Create</button>
-</div>
+

@@ -12,6 +12,7 @@ import { Space } from 'src/app/models/space';
 export class CreateSpaceDialogComponent {
   spaceName = '';
   spaceDescription = '';
+  spaceId = '';
 
   constructor(
     public dialogRef: MatDialogRef<CreateSpaceDialogComponent>,

@@ -1,0 +1,16 @@
+.action-buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.dialog-content {
+    padding: 1em;
+}
+
+.cancel-button:hover {
+    color: red;
+}
+
+.create-button:hover {
+    color: green;
+}
