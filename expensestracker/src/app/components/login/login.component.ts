@@ -17,12 +17,9 @@ export class LoginComponent {
 
   constructor(private router: Router, private apiService: ApiService, public dialog: MatDialog){}
 
-  _openDialog(error: Object) {
-    const _ = this.dialog.open(ErrorDialogComponent, { data: error as Message });
-  }
-
   onLogin(event: any) {
-    this.apiService.login(this.credentials, (err) => this._openDialog(err.error))
+    this.apiService.login(this.credentials, 
+        (err) => ErrorDialogComponent.openDialog(this.dialog, err.error))
         .subscribe(_ => this.router.navigate(['spaces']));
   }
 

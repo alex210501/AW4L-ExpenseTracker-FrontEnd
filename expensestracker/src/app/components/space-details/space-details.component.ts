@@ -1,9 +1,11 @@
 import { Component, createPlatform } from '@angular/core';
 import { ActivatedRoute, Data, Router } from '@angular/router';
 import { Location } from '@angular/common';
+import { MatDialog } from '@angular/material/dialog';
 
 import { ApiService } from 'src/app/services/api.service';
 import { DataService } from 'src/app/services/data.service';
+import { ErrorDialogComponent } from '../dialogs/error-dialog/error-dialog.component';
 import { Space } from 'src/app/models/space';
 import { SpacesComponent } from '../spaces/spaces.component';
 
@@ -22,7 +24,8 @@ export class SpaceDetailsComponent {
     private location: Location,
     private router: Router,
     private apiService: ApiService,
-    public dataService: DataService) {}
+    public dataService: DataService,
+    public dialog: MatDialog ) {}
 
   ngOnInit() {
     // Get space ID from path
@@ -40,19 +43,21 @@ export class SpaceDetailsComponent {
 
   onSave() {
     if (this.space) {
-      this.apiService.patchSpace(this.space).subscribe();
+      this.apiService.patchSpace(this.space, (err) => ErrorDialogComponent.openDialog(this.dialog, err.error))
+        .subscribe();
     }
   }
 
   onDelete() {
     if (this.space) {
-      this.apiService.deleteSpace(this.space.space_id).subscribe(_ => this.router.navigate([`spaces`]));
+      this.apiService.deleteSpace(this.space.space_id, (err) => ErrorDialogComponent.openDialog(this.dialog, err.error))
+        .subscribe(_ => this.router.navigate([`spaces`]));
     }
   }
 
   addUserToSpace() {
     if (this.space) {
-      this.apiService.addUserToSpace(this.space.space_id, this.memberToAdd)
+      this.apiService.addUserToSpace(this.space.space_id, this.memberToAdd, (err) => ErrorDialogComponent.openDialog(this.dialog, err.error))
         .subscribe(collaborator => {
           if (collaborator === undefined) {
             return;
@@ -71,7 +76,7 @@ export class SpaceDetailsComponent {
 
   deleteUserFromSpace(username: string) {
     if (this.space) {
-      this.apiService.deleteUserFromSpace(this.space.space_id, username)
+      this.apiService.deleteUserFromSpace(this.space.space_id, username, (err) => ErrorDialogComponent.openDialog(this.dialog, err.error))
         .subscribe(_ => {
           this.space!.space_collaborators = this.space!.space_collaborators.filter(elem => elem != username);
         });

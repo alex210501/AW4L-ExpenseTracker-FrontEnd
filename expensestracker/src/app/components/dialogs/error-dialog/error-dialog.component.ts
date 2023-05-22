@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import { Message } from 'src/app/models/message';
 
@@ -13,8 +13,8 @@ export class ErrorDialogComponent {
         public dialogRef: MatDialogRef<ErrorDialogComponent>,
         @Inject(MAT_DIALOG_DATA) public data: Message,
         ) {}
-    
-    ngOnInit() {
-        console.log(this.data);
+
+    static openDialog(dialog: MatDialog, error: Object) {
+        dialog.open(ErrorDialogComponent, { data: error as Message });
     }
 }
