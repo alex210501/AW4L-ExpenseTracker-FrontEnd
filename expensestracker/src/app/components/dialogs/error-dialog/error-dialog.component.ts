@@ -15,6 +15,6 @@ export class ErrorDialogComponent {
         ) {}
 
     static openDialog(dialog: MatDialog, error: Object) {
-        dialog.open(ErrorDialogComponent, { data: error as Message });
+        dialog.open(ErrorDialogComponent, { data: error as Message, width: '250px' });
     }
 }
