@@ -17,6 +17,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatToolbarModule } from '@angular/material/toolbar'; 
 import { ReactiveFormsModule } from '@angular/forms';
 
+import { NgxQRCodeModule } from '@techiediaries/ngx-qrcode';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -28,6 +29,7 @@ import { UserSpaceComponent } from './components/user-space/user-space.component
 import { CreateSpaceDialogComponent } from './components/dialogs/create-space-dialog/create-space-dialog.component';
 import { CreateExpenseDialogComponent } from './components/dialogs/create-expense-dialog/create-expense-dialog.component';
 import { ErrorDialogComponent } from './components/dialogs/error-dialog/error-dialog.component';
+import { ShowQrcodeDialogComponent } from './components/dialogs/show-qrcode-dialog/show-qrcode-dialog.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +41,8 @@ import { ErrorDialogComponent } from './components/dialogs/error-dialog/error-di
     SpaceDetailsComponent,
     CreateSpaceDialogComponent,
     CreateExpenseDialogComponent,
-    ErrorDialogComponent
+    ErrorDialogComponent,
+    ShowQrcodeDialogComponent
   ],
   imports: [
     AppRoutingModule,
@@ -59,6 +62,7 @@ import { ErrorDialogComponent } from './components/dialogs/error-dialog/error-di
     MatMenuModule,
     MatSelectModule,
     MatToolbarModule,
+    NgxQRCodeModule,
     ReactiveFormsModule,
   ],
   providers: [],

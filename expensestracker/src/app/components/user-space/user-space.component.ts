@@ -10,6 +10,7 @@ import { ErrorDialogComponent } from '../dialogs/error-dialog/error-dialog.compo
 import { DataService } from 'src/app/services/data.service';
 import { Space } from 'src/app/models/space';
 import { Expense } from 'src/app/models/expense';
+import { ShowQrcodeDialogComponent } from '../dialogs/show-qrcode-dialog/show-qrcode-dialog.component';
 
 @Component({
   selector: 'app-user-space',
@@ -31,7 +32,9 @@ export class UserSpaceComponent {
     private router: Router,
     private apiService: ApiService, 
     public dataService: DataService,
-    public dialog: MatDialog) {}
+    public errorDialog: MatDialog, 
+    public showQrCodeDialog: MatDialog, 
+    ) {}
 
   ngOnInit() {
     // Get space ID from path
@@ -63,7 +66,7 @@ export class UserSpaceComponent {
   }
 
   openCreateExpenseDialog() {
-    const dialogRef = this.dialog.open(CreateExpenseDialogComponent, 
+    const dialogRef = this.errorDialog.open(CreateExpenseDialogComponent, 
       { data: { spaceId: this.spaceId } });
 
     // Get expense from dialog
@@ -76,6 +79,10 @@ export class UserSpaceComponent {
 
   goBack() {
     this.location.back();
+  }
+
+  showQrCode() {
+    ShowQrcodeDialogComponent.openDialog(this.showQrCodeDialog, this.spaceId);
   }
 
   onEdit() {
@@ -109,7 +116,7 @@ export class UserSpaceComponent {
       this.expense = this.expenseToEdit;
       this.editMode = false;
       this.apiService.patchExpense(this.spaceId, this.expense, 
-        (err) => ErrorDialogComponent.openDialog(this.dialog, err.error)).subscribe();
+        (err) => ErrorDialogComponent.openDialog(this.errorDialog, err.error)).subscribe();
       this._loadCategory();
     }
   }

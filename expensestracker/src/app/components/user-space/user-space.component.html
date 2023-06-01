@@ -3,6 +3,9 @@
     <mat-icon>arrow_back</mat-icon>
   </button>
   <span *ngIf="space">{{space.space_name}}</span>
+  <button mat-icon-button (click)="showQrCode()">
+    <mat-icon>qr_code</mat-icon>
+  </button>
   <ng-template #elseBlock>No name</ng-template>
 </mat-toolbar>
 
