@@ -72,7 +72,7 @@
                   <mat-form-field>
                     <mat-label>Category</mat-label>
                     <mat-select (selectionChange)="onCategoryChange()" [(value)]="expenseToEdit.expense_category">
-                      <mat-option>None</mat-option>
+                      <mat-option [value]="null">None</mat-option>
                       <mat-option *ngFor="let cat of dataService.categories" value={{cat.category_id}}>
                         {{cat.category_title}}
                       </mat-option>

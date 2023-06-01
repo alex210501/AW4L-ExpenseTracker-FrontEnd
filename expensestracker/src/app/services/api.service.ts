@@ -16,7 +16,7 @@ const httpOptions = {
     'Content-Type':  'application/json',
   })
 };
-const URL = 'https://alejandro-borbolla.com/expensestracker';
+const URL = 'https://alejandro-borbolla.com/expensestracker/api';
 const LOGIN_URL = `${URL}/auth/login`;
 const LOGOUT_URL = `${URL}/auth/logout`;
 
@@ -158,7 +158,7 @@ export class ApiService {
       expense_cost: expense.expense_cost,
       expense_category: expense.expense_category ?? null,
     };
-
+    console.log(expense.expense_category);
     return this.http.patch<Map<string, string>>(
       EXPENSE_ID_URL.replace(':space_id', spaceId).replace(':expense_id', expense.expense_id),
       expenseJson, 

@@ -6,6 +6,7 @@ import { Location } from '@angular/common';
 import { ApiService } from 'src/app/services/api.service';
 import { Category } from 'src/app/models/category';
 import { CreateExpenseDialogComponent } from '../dialogs/create-expense-dialog/create-expense-dialog.component';
+import { ErrorDialogComponent } from '../dialogs/error-dialog/error-dialog.component';
 import { DataService } from 'src/app/services/data.service';
 import { Space } from 'src/app/models/space';
 import { Expense } from 'src/app/models/expense';
@@ -19,9 +20,9 @@ export class UserSpaceComponent {
   spaceId = '';
   space?: Space;
   expenses: Expense[] = [];
-  expense?: Expense;
-  expenseToEdit?: Expense;
-  category?: Category;
+  expense: Expense | null = null;
+  expenseToEdit: Expense | null = null;
+  category: Category | null = null;
   editMode = false;
 
   constructor(
@@ -56,7 +57,7 @@ export class UserSpaceComponent {
     this.expense = this.dataService.findExpenseById(expenseId) as Expense;
 
     if (this.expense) {
-      this.category = this.dataService.findCategoryById(this.expense.expense_category ?? '');
+      this.category = this.dataService.findCategoryById(this.expense.expense_category ?? '') ?? null;
       this.expenseToEdit = new Expense(this.expense);
     }
   }
@@ -87,7 +88,7 @@ export class UserSpaceComponent {
         .subscribe(_ => {
           this.router.navigate([`space/${this.spaceId}`]);
           this.dataService.removeExpenseById(this.expense!.expense_id);
-          this.expense = undefined;
+          this.expense = null;
         });
     }
   }
@@ -107,7 +108,8 @@ export class UserSpaceComponent {
       }
       this.expense = this.expenseToEdit;
       this.editMode = false;
-      this.apiService.patchExpense(this.spaceId, this.expense).subscribe();
+      this.apiService.patchExpense(this.spaceId, this.expense, 
+        (err) => ErrorDialogComponent.openDialog(this.dialog, err.error)).subscribe();
       this._loadCategory();
     }
   }
@@ -118,12 +120,19 @@ export class UserSpaceComponent {
   }
 
   onCategoryChange() {
+    console.log(this.expenseToEdit?.expense_category);
     this._loadCategory();
   }
 
   _loadCategory() {
-    if (this.expense && this.expense.expense_category) {
-      this.category = this.dataService.findCategoryById(this.expense.expense_category);
+    if (this.expenseToEdit?.expense_category == '0') {
+      this.expenseToEdit.expense_category = null;
+    }
+
+    // If the category is '0', then we are on a null value
+    if (this.expenseToEdit && this.expenseToEdit.expense_category) {
+      this.category = this.dataService.findCategoryById(this.expenseToEdit.expense_category) ?? null;
+      
     }
   }
 }

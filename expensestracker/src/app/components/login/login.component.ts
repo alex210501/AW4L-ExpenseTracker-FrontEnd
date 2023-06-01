@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 
 import { ApiService } from 'src/app/services/api.service';
 import { Credentials } from 'src/app/models/credentials';
-import { ErrorDialogComponent } from '../dialogs/error-dialog/error-dialog.component';
+import { ErrorDialogComponent } from 'src/app/components/dialogs/error-dialog/error-dialog.component';
 import { Message } from 'src/app/models/message';
 
 @Component({
