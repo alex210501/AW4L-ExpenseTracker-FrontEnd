@@ -140,7 +140,6 @@ export class ApiService {
     const expenseJson = {
       expense_description: expenseDescription,
       expense_cost: expenseCost,
-      expense_date: new Date(),
     };
 
     return this.http.post<Expense>(

@@ -16,10 +16,7 @@ export class ShowQrcodeDialogComponent {
     constructor(
         public dialogRef: MatDialogRef<ShowQrcodeDialogComponent>,
         @Inject(MAT_DIALOG_DATA) public qrCodeData: string,
-    ) {
-        console.log('damn');
-        console.log(qrCodeData);
-    }
+    ) {}
 
     static openDialog(dialog: MatDialog, qrCodeValue: string) {
         dialog.open(ShowQrcodeDialogComponent, { data: qrCodeValue });
