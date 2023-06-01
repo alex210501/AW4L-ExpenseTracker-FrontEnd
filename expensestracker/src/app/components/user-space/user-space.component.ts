@@ -45,7 +45,7 @@ export class UserSpaceComponent {
 
     // Get new expenses from API
     this.apiService.getExpensesFromSpaceId(this.spaceId)
-      .subscribe(expenses => this.dataService.expenses = expenses);
+      .subscribe(expenses => this.dataService.expenses = expenses.reverse());
 
     // Get category from API
     this.apiService.getCategoriesFromSpace(this.spaceId)

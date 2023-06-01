@@ -11,7 +11,7 @@
 
 <div class="expense-body">
     <div class="expense-list">
-      <mat-nav-list class="expense-tile" *ngFor="let expense of dataService.expenses;" (click)="onExpense(expense.expense_id)">
+      <mat-nav-list class="expense-tile" *ngFor="let expense of dataService.expenses.reverse()" (click)="onExpense(expense.expense_id)">
         <span matListItemTitle class="expense-line">{{expense.expense_description}}</span>
         <span matListItemLine class="expense-line">Payd by {{expense.expense_paid_by}}</span>
       </mat-nav-list>

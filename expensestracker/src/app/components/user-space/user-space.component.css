@@ -6,11 +6,13 @@
 }
 
 .expense-list {
-    width: 45%; 
+    width: 45%;
+    max-height: 80vh;
     float: left;
     margin-left: auto;
     margin-right: auto;
     padding: 0 2em 0 1em;
+    overflow-y:scroll;
 }
 
 .expense-details {
