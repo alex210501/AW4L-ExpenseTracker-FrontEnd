@@ -12,7 +12,7 @@
     margin-left: auto;
     margin-right: auto;
     padding: 0 2em 0 1em;
-    overflow-y:scroll;
+    overflow-y: auto;
 }
 
 .expense-details {
