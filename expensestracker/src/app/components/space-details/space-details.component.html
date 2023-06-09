@@ -1,80 +1,104 @@
 <mat-toolbar>
-    <button mat-icon-button (click)="goBack()">
-        <mat-icon>arrow_back</mat-icon>
-    </button>
-    <span *ngIf="space">{{ space.space_name }}</span>
+  <button mat-icon-button (click)="goBack()">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+  <span *ngIf="space">{{ space.space_name }}</span>
 </mat-toolbar>
 
-<table *ngIf="space" class="space-details-content">
+<div class="body">
+  <table *ngIf="space">
     <tr>
-        <td>ID</td>
-        <td class="space-id-col">
-            <p class="space-id">{{ space.space_id }}</p>
-            <button mat-icon-button color="primary" [cdkCopyToClipboard]="space.space_id">
-                <mat-icon>file_copy</mat-icon>
+      <td>ID</td>
+      <td class="space-id-col">
+        <p class="space-id">{{ space.space_id }}</p>
+        <button
+          mat-icon-button
+          color="primary"
+          [cdkCopyToClipboard]="space.space_id"
+        >
+          <mat-icon>file_copy</mat-icon>
+        </button>
+      </td>
+    </tr>
+    <tr>
+      <td>Description</td>
+      <input matInput type="text" [(ngModel)]="space.space_description" />
+    </tr>
+    <tr>
+      <td>Author</td>
+      <td>{{ space.space_admin }}</td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <h1 style="margin-top: 1em">Members</h1>
+        <mat-list>
+          <mat-list-item
+            class="list-item"
+            *ngFor="let collaborator of space.space_collaborators"
+          >
+            <mat-icon matListItemIcon>person_pin</mat-icon>
+            <span matListItemLine>{{ collaborator }}</span>
+            <button
+              matListItemMeta
+              mat-icon-button
+              color="primary"
+              (click)="deleteUserFromSpace(collaborator)"
+            >
+              <mat-icon>delete</mat-icon>
             </button>
-        </td>
-    </tr>
-    <tr>
-        <td>Description</td>
-        <input matInput type="text" [(ngModel)]="space.space_description" />
-    </tr>
-    <tr>
-        <td>Author</td>
-        <td>{{ space.space_admin }}</td>
-    </tr>
-    <tr>
-        <td colspan="2">
-            <!-- <mat-card> -->
-            <h1 style="margin-top: 1em">Members</h1>
-            <mat-list>
-                <mat-list-item class="list-item" *ngFor="let collaborator of space.space_collaborators">
-                    <mat-icon matListItemIcon>person_pin</mat-icon>
-                    <span matListItemLine>{{ collaborator }}</span>
-                    <button matListItemMeta mat-icon-button color="primary" (click)="deleteUserFromSpace(collaborator)">
-                        <mat-icon>delete</mat-icon>
-                    </button>
-                </mat-list-item>
-                <mat-list-item>
-                    <input matInput type="text" [(ngModel)]="memberToAdd" />
-                    <button matListItemMeta mat-icon-button color="accent" (click)="addUserToSpace()">
-                        <mat-icon>add</mat-icon>
-                    </button>
-                </mat-list-item>
-            </mat-list>
-            <!-- </mat-card> -->
-        </td>
+          </mat-list-item>
+          <mat-list-item>
+            <input matInput type="text" [(ngModel)]="memberToAdd" />
+            <button
+              matListItemMeta
+              mat-icon-button
+              color="accent"
+              (click)="addUserToSpace()"
+            >
+              <mat-icon>add</mat-icon>
+            </button>
+          </mat-list-item>
+        </mat-list>
+      </td>
     </tr>
 
     <tr>
-        <td colspan="2">
-            <h1>Categories</h1>
-            <mat-list>
-                <mat-list-item class="list-item" *ngFor="let category of dataService.categories">
-                    <span matListItemTitle>{{ category.category_title }}</span>
-                    <button matListItemMeta mat-icon-button color="accent"
-                        (click)="deleteCategoryFromSpace(category.category_id)">
-                        <mat-icon>delete</mat-icon>
-                    </button>
-                </mat-list-item>
-                <mat-list-item>
-                    <input matInput type="text" [(ngModel)]="categoryToAdd" />
-                    <button matListItemMeta mat-icon-button color="accent" (click)="addCategoryToSpace()">
-                        <mat-icon>add</mat-icon>
-                    </button>
-                </mat-list-item>
-            </mat-list>
-        </td>
-    </tr>
-
-    <tr>
-        <td>
-            <button mat-raised-button color="primary" (click)="onSave()">Save</button>
-        </td>
-        <td>
-            <button mat-raised-button color="primary" (click)="onDelete()">
-                Delete
+      <td colspan="2">
+        <h1>Categories</h1>
+        <mat-list>
+          <mat-list-item
+            class="list-item"
+            *ngFor="let category of dataService.categories"
+          >
+            <span matListItemTitle>{{ category.category_title }}</span>
+            <button
+              matListItemMeta
+              mat-icon-button
+              color="accent"
+              (click)="deleteCategoryFromSpace(category.category_id)"
+            >
+              <mat-icon>delete</mat-icon>
             </button>
-        </td>
+          </mat-list-item>
+          <mat-list-item>
+            <input matInput type="text" [(ngModel)]="categoryToAdd" />
+            <button
+              matListItemMeta
+              mat-icon-button
+              color="accent"
+              (click)="addCategoryToSpace()"
+            >
+              <mat-icon>add</mat-icon>
+            </button>
+          </mat-list-item>
+        </mat-list>
+      </td>
     </tr>
-</table>
+  </table> <br/>
+  <div class="buttons">
+    <button mat-raised-button color="primary">Save</button>
+    <button mat-raised-button color="primary" (click)="onDelete()">
+      Delete
+    </button>
+  </div>
+</div>

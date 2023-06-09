@@ -1,6 +1,10 @@
-.space-details-content {
-    margin-left: auto;
-    margin-right: auto;
+.body {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .list-item {
@@ -14,4 +18,9 @@
 
 .space-id-col {
     display: flex;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
 }
