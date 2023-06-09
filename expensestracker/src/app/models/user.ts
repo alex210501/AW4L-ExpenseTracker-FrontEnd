@@ -1,3 +1,6 @@
+/**
+ * Model for a user
+ */
 export interface User {
     user_username: string;
     user_firstname: string;

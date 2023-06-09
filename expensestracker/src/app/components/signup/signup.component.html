@@ -1,61 +1,69 @@
 <mat-card class="signup-body">
-    <mat-card-header class="signup-title">
-        <mat-card-title>Signup</mat-card-title>
-    </mat-card-header>
-    <mat-card-content class="signup-content">
-        <form [formGroup]="signUpForm">
-            <!-- <form [formGroup]="signUpForm"> -->
-            <table cellspacing="1em">
-                <tr>
-                    <td colspan="2">
-                        <mat-form-field class="signup-input">
-                            <mat-label>Username</mat-label>
-                            <input matInput type="text" formControlName="username">
-                        </mat-form-field>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <mat-form-field class="signup-input">
-                            <mat-label>Firstname</mat-label>
-                            <input matInput type="text" formControlName="firstname">
-                        </mat-form-field>
-                    </td>
-                    <td colspan="2">
-                        <mat-form-field class="signup-input">
-                            <mat-label>Lastname</mat-label>
-                            <input matInput type="text" formControlName="lastname">
-                        </mat-form-field>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2">
-                        <mat-form-field class="signup-input">
-                            <mat-label>Email</mat-label>
-                            <input matInput type="text" formControlName="email">
-                        </mat-form-field>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <mat-form-field class="signup-input">
-                            <mat-label>Password</mat-label>
-                            <input matInput type="password" formControlName="password">
-                        </mat-form-field>
-                    </td>
-                    <td>
-                        <mat-form-field class="signup-input">
-                            <mat-label>Retype password</mat-label>
-                            <input matInput type="password" formControlName="retype_password">
-                        </mat-form-field>
-                    </td>
-                </tr>
-            </table>
-        </form>
+  <mat-card-header class="signup-title">
+    <mat-card-title>Signup</mat-card-title>
+  </mat-card-header>
 
-        <div class="signup-buttons">
-            <button mat-raised-button color="primary" (click)="onCreate()">Create</button>
-            <button mat-raised-button color="primary" (click)="goToLogin()">Login</button>
-        </div>
-    </mat-card-content>
+  <mat-card-content class="signup-content">
+    <form [formGroup]="signUpForm">
+      <table cellspacing="1em">
+        <tr>
+          <td colspan="2">
+            <mat-form-field class="signup-input">
+              <mat-label>Username</mat-label>
+              <input matInput type="text" formControlName="username" />
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <mat-form-field class="signup-input">
+              <mat-label>Firstname</mat-label>
+              <input matInput type="text" formControlName="firstname" />
+            </mat-form-field>
+          </td>
+          <td colspan="2">
+            <mat-form-field class="signup-input">
+              <mat-label>Lastname</mat-label>
+              <input matInput type="text" formControlName="lastname" />
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <mat-form-field class="signup-input">
+              <mat-label>Email</mat-label>
+              <input matInput type="text" formControlName="email" />
+            </mat-form-field>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <mat-form-field class="signup-input">
+              <mat-label>Password</mat-label>
+              <input matInput type="password" formControlName="password" />
+            </mat-form-field>
+          </td>
+          <td>
+            <mat-form-field class="signup-input">
+              <mat-label>Retype password</mat-label>
+              <input
+                matInput
+                type="password"
+                formControlName="confirmPassword"
+              />
+            </mat-form-field>
+          </td>
+        </tr>
+      </table>
+    </form>
+
+    <div class="signup-buttons">
+      <button mat-raised-button color="primary" (click)="onCreate()">
+        Create
+      </button>
+      <button mat-raised-button color="primary" (click)="goToLogin()">
+        Login
+      </button>
+    </div>
+  </mat-card-content>
 </mat-card>

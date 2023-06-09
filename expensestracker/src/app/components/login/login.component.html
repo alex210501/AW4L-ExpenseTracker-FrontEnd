@@ -5,15 +5,29 @@
   <mat-card-content>
     <mat-form-field class="login-input">
       <mat-label>Username</mat-label>
-      <input matInput type="text" [(ngModel)]="credentials.username">
+      <input matInput type="text" [(ngModel)]="credentials.username" />
     </mat-form-field>
     <mat-form-field class="login-input">
       <mat-label>Password</mat-label>
-      <input matInput type="password" [(ngModel)]="credentials.password">
+      <input matInput type="password" [(ngModel)]="credentials.password" />
     </mat-form-field>
     <mat-card-actions class="login-button">
-      <button mat-raised-button class="buttons" color="primary" (click)="onLogin($event)">Connect</button>
-      <button mat-raised-button class="buttons" color="primary" (click)="goToSignUp($event)">Sign Up</button>
+      <button
+        mat-raised-button
+        class="buttons"
+        color="primary"
+        (click)="onLogin()"
+      >
+        Connect
+      </button>
+      <button
+        mat-raised-button
+        class="buttons"
+        color="primary"
+        (click)="goToSignUp()"
+      >
+        Sign Up
+      </button>
     </mat-card-actions>
   </mat-card-content>
 </mat-card>

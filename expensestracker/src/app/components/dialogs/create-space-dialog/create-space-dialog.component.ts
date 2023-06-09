@@ -9,44 +9,66 @@ import { Space } from 'src/app/models/space';
 @Component({
   selector: 'app-create-space-dialog',
   templateUrl: './create-space-dialog.component.html',
-  styleUrls: ['./create-space-dialog.component.css']
+  styleUrls: ['./create-space-dialog.component.css'],
 })
+
+/**
+ * Dialog to create or join a space
+ */
 export class CreateSpaceDialogComponent {
   spaceName = '';
   spaceDescription = '';
   spaceId = '';
 
+  /**
+   * Constructor
+   * @param dialogRef Reference to a dialog
+   * @param dialog Dialog
+   * @param apiService Service to use the API
+   * @param dataService Service to access the shared data
+   */
   constructor(
     public dialogRef: MatDialogRef<CreateSpaceDialogComponent>,
     public dialog: MatDialog,
     private apiService: ApiService,
-    private dataService: DataService,
-    ) {}
+    private dataService: DataService
+  ) {}
 
-    onCreate() {
-      this.apiService.createSpace(
-        this.spaceName, 
-        this.spaceDescription, 
-        (err) => ErrorDialogComponent.openDialog(this.dialog, err.error))
-        .subscribe(result => this.dialogRef.close(result as Space));
-    }
+  /**
+   * Callback used to create a new space
+   */
+  onCreate() {
+    this.apiService
+      .createSpace(this.spaceName, this.spaceDescription, (err) =>
+        ErrorDialogComponent.openDialog(this.dialog, err.error)
+      )
+      .subscribe((result) => this.dialogRef.close(result as Space));
+  }
 
-    onJoin() {
-        this.apiService.joinSpace(
-            this.spaceId,
-            (err) => ErrorDialogComponent.openDialog(this.dialog, err.error))
-            .subscribe((_) => {
-                this.apiService.getSpaceById(
-                    this.spaceId, 
-                    (err) => ErrorDialogComponent.openDialog(this.dialog, err.error))
-                    .subscribe((space) => {
-                        this.dataService.spaces.push(space);
-                        this.dialogRef.close();
-                    });
-            });
-    }
+  /**
+   * Callback used to join a new space
+   */
+  onJoin() {
+    this.apiService
+      .joinSpace(this.spaceId, (err) =>
+        ErrorDialogComponent.openDialog(this.dialog, err.error)
+      )
+      .subscribe((_) => {
+        this.apiService
+          .getSpaceById(this.spaceId, (err) =>
+            ErrorDialogComponent.openDialog(this.dialog, err.error)
+          )
+          .subscribe((space) => {
+            this.dataService.spaces.push(space);
+            this.dialogRef.close();
+          });
+      });
+  }
 
-    onCancel() {
-      this.dialogRef.close();
-    }
+  /**
+   * Cancel the space creation
+   */
+  onCancel() {
+    this.dialogRef.close();
+  }
 }

@@ -1,5 +1,6 @@
-import { Category } from "./category";
-
+/**
+ * Model for an expense
+ */
 export class Expense {
   expense_id: string = '';
   expense_cost: number = 0.0;

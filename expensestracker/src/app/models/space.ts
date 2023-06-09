@@ -1,3 +1,6 @@
+/**
+ * Model for a space
+ */
 export interface Space {
     space_id: string;
     space_name: string;

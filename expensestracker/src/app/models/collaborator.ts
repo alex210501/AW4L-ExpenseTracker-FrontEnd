@@ -1,3 +1,6 @@
+/**
+ * Model for a collaborator
+ */
 export interface Collaborator {
   collaborator_id: string;
   collaborator_space: string;

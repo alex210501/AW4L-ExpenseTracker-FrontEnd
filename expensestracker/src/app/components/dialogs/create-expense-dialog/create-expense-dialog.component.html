@@ -3,13 +3,18 @@
   <mat-form-field appearance="fill">
     <mat-label>Description</mat-label>
     <input matInput [(ngModel)]="expenseDescription" />
-  </mat-form-field> <br/>
+  </mat-form-field>
+  <br />
   <mat-form-field appearance="fill">
     <mat-label>Cost</mat-label>
     <input type="number" matInput [(ngModel)]="expenseCost" />
   </mat-form-field>
 </div>
 <div mat-dialog-actions class="action-buttons">
-  <button mat-button mat-dialog-close class="cancel-button" color="primary">Cancel</button>
-  <button mat-button class="create-button" color="primary" (click)="onCreate()">Create</button>
+  <button mat-button mat-dialog-close class="cancel-button" color="primary">
+    Cancel
+  </button>
+  <button mat-button class="create-button" color="primary" (click)="onCreate()">
+    Create
+  </button>
 </div>
